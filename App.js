@@ -1,114 +1,145 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+import * as React from 'react';
+import { Text, View, SafeAreaView, TouchableOpacity, Image, StatusBar } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+function CustomHeader ({title}) {
+      return (
+        <View style={{flexDirection: 'row', height: 50}}>
+          <TouchableOpacity
+            style={{
+              width: 50,
+              paddingLeft: 20,
+              justifyContent: 'center',
+            }}>
+            <Image
+              source={require('./src/assets/images/menu.png')}
+              resizeMode="contain"
+              style={{
+                width: 20,
+                height: 20,
+              }}
+            />
+          </TouchableOpacity>
 
-const App: () => React$Node = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
+          <View
+            style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+            <View
+              style={{
+                width: '70%',
+                height: '80%',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 30,
+              }}>
+              <Text>{ title }</Text>
             </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
           </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
+
+          <TouchableOpacity
+            style={{
+              width: 50,
+              paddingRight: 20,
+              justifyContent: 'center',
+            }}>
+            <Image
+              source={require('./src/assets/images/user.png')}
+              resizeMode="contain"
+              style={{
+                width: 20,
+                height: 20,
+              }}
+            />
+          </TouchableOpacity>
+        </View>
+      );
+}
+
+function HomeScreen({navigation}) {
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      <CustomHeader title="Home" />
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>Home!</Text>
+        <TouchableOpacity
+          style={{margin: 25}}
+          onPress={() => navigation.navigate('Details')}>
+          <Text>Go to Details</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
-};
+}
 
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
+function HomeScreenDetails() {
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      <CustomHeader title="Home Details" />
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>Home Details!</Text>
+      </View>
+    </SafeAreaView>
+  );
+}
 
-export default App;
+function SettingsScreen({navigation}) {
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      <CustomHeader title="Settings" />
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>Settings!</Text>
+        <TouchableOpacity
+          style={{margin: 25}}
+          onPress={() => navigation.navigate('SettingsDetails')}>
+          <Text>Go to Account Settings</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+function SettingsScreenAccount() {
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      <CustomHeader title="Account Settings" />
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>Account Settings!</Text>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
+
+function HomeStack () {
+  return (
+    <Stack.Navigator initialRouteName="Home" headerMode="none">
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Details" component={HomeScreenDetails} />
+    </Stack.Navigator>
+  );
+}
+
+function SettingStack () {
+  return (
+    <Stack.Navigator initialRouteName="Settings" headerMode="none">
+      <Stack.Screen name="Settings" component={SettingsScreen} />
+      <Stack.Screen name="SettingsDetails" component={SettingsScreenAccount} />
+    </Stack.Navigator>
+  );
+}
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={HomeStack} />
+        <Tab.Screen name="Settings" component={SettingStack} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}
