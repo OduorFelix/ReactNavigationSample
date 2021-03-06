@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useEffect} from 'react';
 import { Text, View, SafeAreaView, TouchableOpacity, Image, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -134,6 +134,12 @@ function SettingStack () {
 }
 
 export default function App() {
+
+  useEffect( () => {
+   console.log("Render Data")
+ })
+
+
   return (
     <NavigationContainer>
       <Tab.Navigator>
