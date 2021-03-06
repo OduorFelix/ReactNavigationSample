@@ -7,7 +7,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 function CustomHeader ({title}) {
       return (
-        <View style={{flexDirection: 'row', height: 50}}>
+        <View style={ { flexDirection: 'row', height: 50 } }>
+          {/* Left Icon */}
           <TouchableOpacity
             style={{
               width: 50,
@@ -23,7 +24,7 @@ function CustomHeader ({title}) {
               }}
             />
           </TouchableOpacity>
-
+          {/* Middle Content */}
           <View
             style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
             <View
@@ -37,7 +38,7 @@ function CustomHeader ({title}) {
               <Text>{ title }</Text>
             </View>
           </View>
-
+          {/* Right Icon */}
           <TouchableOpacity
             style={{
               width: 50,
@@ -66,7 +67,7 @@ function HomeScreen({navigation}) {
         <TouchableOpacity
           style={{margin: 25}}
           onPress={() => navigation.navigate('Details')}>
-          <Text>Go to Details</Text>
+          <Text>Go to Home Details</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -134,12 +135,6 @@ function SettingStack () {
 }
 
 export default function App() {
-
-  useEffect( () => {
-   console.log("Render Data")
- })
-
-
   return (
     <NavigationContainer>
       <Tab.Navigator>
